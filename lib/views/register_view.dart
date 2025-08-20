@@ -28,55 +28,70 @@ class _RegisterViewState extends State<RegisterView> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        TextField(
-          controller: _email,
-          enableSuggestions: false,
-          autocorrect: false,
-          keyboardType: TextInputType.emailAddress,
-          decoration: const InputDecoration(
-            hintText: "Lütfen e-mail'inizi girin.",
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Kayıt ol"),
+        backgroundColor: Colors.blue,
+        foregroundColor: Colors.white,
+      ),
+      body: Column(
+        children: [
+          TextField(
+            controller: _email,
+            enableSuggestions: false,
+            autocorrect: false,
+            keyboardType: TextInputType.emailAddress,
+            decoration: const InputDecoration(
+              hintText: "Lütfen e-mail'inizi girin.",
+            ),
           ),
-        ),
-        TextField(
-          controller: _password,
-          obscureText: true,
-          enableSuggestions: false,
-          autocorrect: false,
-          decoration: const InputDecoration(
-            hintText: "Lütfen şifrenizi girin.",
+          TextField(
+            controller: _password,
+            obscureText: true,
+            enableSuggestions: false,
+            autocorrect: false,
+            decoration: const InputDecoration(
+              hintText: "Lütfen şifrenizi girin.",
+            ),
           ),
-        ),
-        TextButton(
-          onPressed: () async {
-            final email = _email.text;
-            final password = _password.text;
+          TextButton(
+            onPressed: () async {
+              final email = _email.text;
+              final password = _password.text;
 
-            try {
-              final userCredential = await FirebaseAuth.instance
-                  .createUserWithEmailAndPassword(
-                    email: email,
-                    password: password,
+              try {
+                final userCredential = await FirebaseAuth.instance
+                    .createUserWithEmailAndPassword(
+                      email: email,
+                      password: password,
+                    );
+
+                print(userCredential);
+              } on FirebaseAuthException catch (e) {
+                print(e.code);
+                if (e.code == "weak-password") {
+                  print(
+                    "Zayıf şifre. Şifre en az 6 karakter uzunluğunda olmalı.",
                   );
-
-              print(userCredential);
-            } on FirebaseAuthException catch (e) {
-              print(e.code);
-              if (e.code == "weak-password") {
-                print(
-                  "Zayıf şifre. Şifre en az 6 karakter uzunluğunda olmalı.",
-                );
-              } else if (e.code == "email-already-in-use") {
-                print("Bu e-mail kullanılıyor.");
-              } else if (e.code == "invalid-email") {
-                print("Geçersiz e-mail adresi girdiniz.");
+                } else if (e.code == "email-already-in-use") {
+                  print("Bu e-mail kullanılıyor.");
+                } else if (e.code == "invalid-email") {
+                  print("Geçersiz e-mail adresi girdiniz.");
+                }
               }
-            }
-          },
-          child: const Text('Kayıt ol'),
-        ),
-      ],
+            },
+            child: const Text('Kayıt ol'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(
+                context,
+              ).pushNamedAndRemoveUntil('/login', (router) => false);
+            },
+            child: const Text("Giriş yap"),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -28,47 +28,64 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        TextField(
-          controller: _email,
-          enableSuggestions: false,
-          autocorrect: false,
-          keyboardType: TextInputType.emailAddress,
-          decoration: const InputDecoration(
-            hintText: "Lütfen e-mail'inizi girin.",
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Giriş yap"),
+        backgroundColor: Colors.blue,
+        foregroundColor: Colors.white,
+      ),
+      body: Column(
+        children: [
+          TextField(
+            controller: _email,
+            enableSuggestions: false,
+            autocorrect: false,
+            keyboardType: TextInputType.emailAddress,
+            decoration: const InputDecoration(
+              hintText: "Lütfen e-mail'inizi girin.",
+            ),
           ),
-        ),
-        TextField(
-          controller: _password,
-          obscureText: true,
-          enableSuggestions: false,
-          autocorrect: false,
-          decoration: const InputDecoration(
-            hintText: "Lütfen şifrenizi girin.",
+          TextField(
+            controller: _password,
+            obscureText: true,
+            enableSuggestions: false,
+            autocorrect: false,
+            decoration: const InputDecoration(
+              hintText: "Lütfen şifrenizi girin.",
+            ),
           ),
-        ),
-        TextButton(
-          onPressed: () async {
-            final email = _email.text;
-            final password = _password.text;
-
-            try {
-              final userCredential = await FirebaseAuth.instance
-                  .signInWithEmailAndPassword(email: email, password: password);
-
-              print(userCredential);
-            } on FirebaseAuthException catch (e) {
-              if (e.code == "invalid-credential") {
-                print(
-                  "Kullanıcı bulunamadı. (E-mail: ${email} Password: ${password})",
-                );
+          TextButton(
+            onPressed: () async {
+              final email = _email.text;
+              final password = _password.text;
+      
+              try {
+                final userCredential = await FirebaseAuth.instance
+                    .signInWithEmailAndPassword(email: email, password: password);
+      
+                print(userCredential);
+              } on FirebaseAuthException catch (e) {
+                if (e.code == "invalid-credential") {
+                  print(
+                    "Kullanıcı bulunamadı. (E-mail: ${email} Password: ${password})",
+                  );
+                }
               }
-            }
-          },
-          child: const Text('Giriş yap'),
-        ),
-      ],
+            },
+            child: const Text('Giriş yap'),
+          ),
+      
+          TextButton(
+            onPressed: () {
+              Navigator.of(
+                context,
+              ).pushNamedAndRemoveUntil('/register', (router) => false);
+            },
+      
+            child: Text("Kayıt ol"),
+          ),
+        ],
+      ),
     );
   }
 }
