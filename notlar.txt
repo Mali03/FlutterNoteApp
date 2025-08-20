@@ -1,0 +1,4 @@
+test@gmail.com
+asdasd
+
+git init .

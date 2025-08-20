@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "292809248232",
+    "project_id": "mali-not-app",
+    "storage_bucket": "mali-not-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:292809248232:android:3d8928d748540aa172a85d",
+        "android_client_info": {
+          "package_name": "com.noteapp.mynoteapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXbKR-XSyQMvVjgHbcQMWCqf5F6hmnnKs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
