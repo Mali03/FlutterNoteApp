@@ -2,3 +2,6 @@ test@gmail.com
 asdasd
 
 git init .
+git add --all
+git commit -m "Initial commit"
+git status
