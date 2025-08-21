@@ -5,6 +5,7 @@ import 'package:mynoteapp/firebase_options.dart';
 import 'package:mynoteapp/views/login_view.dart';
 import 'package:mynoteapp/views/register_view.dart';
 import 'package:mynoteapp/views/verify_email_view.dart';
+import 'dart:developer' show log;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,11 +47,85 @@ class HomePage extends StatelessWidget {
               return const LoginView();
             }
 
-            return const Text("Tamamlandı.");
+            return const NotesView();
           default:
             return const CircularProgressIndicator();
         }
       },
     );
   }
+}
+
+enum MenuAction { logout }
+
+class NotesView extends StatefulWidget {
+  const NotesView({super.key});
+
+  @override
+  State<NotesView> createState() => _NotesViewState();
+}
+
+class _NotesViewState extends State<NotesView> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Notlarım"),
+        backgroundColor: Colors.blue,
+        foregroundColor: Colors.white,
+        actions: [
+          PopupMenuButton<MenuAction>(
+            onSelected: (value) async {
+              switch (value) {
+                case MenuAction.logout:
+                  final shouldLogout = await showLogOutDialog(context);
+                  if (shouldLogout) {
+                    await FirebaseAuth.instance.signOut();
+                    Navigator.of(context).pushNamedAndRemoveUntil('/login', (_) => false);
+                  }
+                  break;
+              }
+            },
+
+            itemBuilder: (context) {
+              return const [
+                PopupMenuItem<MenuAction>(
+                  value: MenuAction.logout,
+                  child: Text("Çıkış yap"),
+                ),
+              ];
+            },
+          ),
+        ],
+      ),
+      body: const Text("Hello World"),
+    );
+  }
+}
+
+Future<bool> showLogOutDialog(BuildContext context) {
+  return showDialog<bool>(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: const Text("Çıkış Yap"),
+        content: const Text("Çıkış yapmak istediğinize emin misiniz?"),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(true);
+            },
+            child: const Text("Evet"),
+          ),
+
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(false);
+            },
+            child: const Text("Hayır"),
+          ),
+        ],
+      );
+    },
+  ).then((value) => value ?? false);
 }
