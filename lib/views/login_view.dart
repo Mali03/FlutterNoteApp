@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:developer' show log;
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -58,15 +59,21 @@ class _LoginViewState extends State<LoginView> {
             onPressed: () async {
               final email = _email.text;
               final password = _password.text;
-      
+
               try {
                 final userCredential = await FirebaseAuth.instance
-                    .signInWithEmailAndPassword(email: email, password: password);
-      
-                print(userCredential);
+                    .signInWithEmailAndPassword(
+                      email: email,
+                      password: password,
+                    );
+
+                log(userCredential.toString());
+                Navigator.of(
+                  context,
+                ).pushNamedAndRemoveUntil('/notes', (route) => false);
               } on FirebaseAuthException catch (e) {
                 if (e.code == "invalid-credential") {
-                  print(
+                  log(
                     "Kullanıcı bulunamadı. (E-mail: ${email} Password: ${password})",
                   );
                 }
@@ -74,14 +81,14 @@ class _LoginViewState extends State<LoginView> {
             },
             child: const Text('Giriş yap'),
           ),
-      
+
           TextButton(
             onPressed: () {
               Navigator.of(
                 context,
               ).pushNamedAndRemoveUntil('/register', (router) => false);
             },
-      
+
             child: Text("Kayıt ol"),
           ),
         ],

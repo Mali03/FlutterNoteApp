@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'dart:developer' show log;
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -66,17 +67,17 @@ class _RegisterViewState extends State<RegisterView> {
                       password: password,
                     );
 
-                print(userCredential);
+                log(userCredential.toString());
               } on FirebaseAuthException catch (e) {
-                print(e.code);
+                log((e.code).toString());
                 if (e.code == "weak-password") {
-                  print(
+                  log(
                     "Zayıf şifre. Şifre en az 6 karakter uzunluğunda olmalı.",
                   );
                 } else if (e.code == "email-already-in-use") {
-                  print("Bu e-mail kullanılıyor.");
+                  log("Bu e-mail kullanılıyor.");
                 } else if (e.code == "invalid-email") {
-                  print("Geçersiz e-mail adresi girdiniz.");
+                  log("Geçersiz e-mail adresi girdiniz.");
                 }
               }
             },
