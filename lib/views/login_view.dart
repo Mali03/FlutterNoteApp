@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:developer' show log;
 
 import 'package:mynoteapp/constants/routes.dart';
+import 'package:mynoteapp/utilities/show_error_dialog.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -74,11 +75,22 @@ class _LoginViewState extends State<LoginView> {
                   context,
                 ).pushNamedAndRemoveUntil(notesRoute, (route) => false);
               } on FirebaseAuthException catch (e) {
+                log(e.code);
                 if (e.code == "invalid-credential") {
                   log(
                     "Kullanıcı bulunamadı. (E-mail: ${email} Password: ${password})",
                   );
+                  await showErrorDialog(context, "E-mail veya şifre hatalı. Lütfen tekrar deneyin.");
+                } else if (e.code == "invalid-email") {
+                  log(
+                    "Geçersiz e-mail. (E-mail: ${email} Password: ${password})",
+                  );
+                  await showErrorDialog(context, "Geçersiz e-mail adresi. Lütfen tekrar deneyin.");
+                } else {
+                  await showErrorDialog(context, "Beklenmedik bir hata oluştu: ${e.code}");
                 }
+              } catch (e) {
+                await showErrorDialog(context, e.toString());
               }
             },
             child: const Text('Giriş yap'),
