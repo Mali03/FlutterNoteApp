@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:developer' show log;
 
+import 'package:mynoteapp/constants/routes.dart';
+
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
 
@@ -70,7 +72,7 @@ class _LoginViewState extends State<LoginView> {
                 log(userCredential.toString());
                 Navigator.of(
                   context,
-                ).pushNamedAndRemoveUntil('/notes', (route) => false);
+                ).pushNamedAndRemoveUntil(notesRoute, (route) => false);
               } on FirebaseAuthException catch (e) {
                 if (e.code == "invalid-credential") {
                   log(
@@ -86,7 +88,7 @@ class _LoginViewState extends State<LoginView> {
             onPressed: () {
               Navigator.of(
                 context,
-              ).pushNamedAndRemoveUntil('/register', (router) => false);
+              ).pushNamedAndRemoveUntil(registerRoute, (router) => false);
             },
 
             child: Text("Kayıt ol"),
