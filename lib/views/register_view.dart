@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'dart:developer' show log;
 import 'package:mynoteapp/constants/routes.dart';
+import 'package:mynoteapp/utilities/show_error_dialog.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -62,24 +62,40 @@ class _RegisterViewState extends State<RegisterView> {
               final password = _password.text;
 
               try {
-                final userCredential = await FirebaseAuth.instance
+                await FirebaseAuth.instance
                     .createUserWithEmailAndPassword(
                       email: email,
                       password: password,
                     );
 
-                log(userCredential.toString());
+                final user = FirebaseAuth.instance.currentUser;
+                await user?.sendEmailVerification();
+
+                Navigator.of(context).pushNamed(verifyEmailRoute);
               } on FirebaseAuthException catch (e) {
-                log((e.code).toString());
                 if (e.code == "weak-password") {
-                  log(
-                    "Zayıf şifre. Şifre en az 6 karakter uzunluğunda olmalı.",
+                  await showErrorDialog(
+                    context,
+                    "Şifre en az 6 karakter uzunluğunda olmalı. Lütfen tekrar deneyin.",
                   );
                 } else if (e.code == "email-already-in-use") {
-                  log("Bu e-mail kullanılıyor.");
+                  await showErrorDialog(
+                    context,
+                    "Bu e-mail kullanılıyor. Lütfen tekrar deneyin.",
+                  );
                 } else if (e.code == "invalid-email") {
-                  log("Geçersiz e-mail adresi girdiniz.");
+                  await showErrorDialog(
+                    context,
+                    "Geçersiz e-mail adresi. Lütfen tekrar deneyin.",
+                  );
+                } else {
+                  await showErrorDialog(
+                    context,
+                    "Beklenmedik bir hata oluştu: ${e.code}",
+                  );
                 }
+              } catch (e) {
+                await showErrorDialog(context, e.toString());
               }
             },
             child: const Text('Kayıt ol'),
