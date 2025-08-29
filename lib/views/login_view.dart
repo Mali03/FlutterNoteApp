@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mynoteapp/constants/routes.dart';
+import 'package:mynoteapp/services/auth/auth_exceptions.dart';
+import 'package:mynoteapp/services/auth/auth_service.dart';
 import 'package:mynoteapp/utilities/show_error_dialog.dart';
 
 class LoginView extends StatefulWidget {
@@ -62,42 +63,38 @@ class _LoginViewState extends State<LoginView> {
               final password = _password.text;
 
               try {
-                await FirebaseAuth.instance.signInWithEmailAndPassword(
+                await AuthService.firebase().logIn(
                   email: email,
                   password: password,
                 );
 
-                final user = FirebaseAuth.instance.currentUser;
-                if (user?.emailVerified ?? false) {
+                final user = AuthService.firebase().currentUser;
+                if (user?.isEmailVerified ?? false) {
                   Navigator.of(
                     context,
                   ).pushNamedAndRemoveUntil(notesRoute, (route) => false);
                 } else {
-                  await user?.sendEmailVerification();
-                  
+                  await AuthService.firebase().sendEmailVerification();
+
                   Navigator.of(
                     context,
                   ).pushNamedAndRemoveUntil(verifyEmailRoute, (route) => false);
                 }
-              } on FirebaseAuthException catch (e) {
-                if (e.code == "invalid-credential") {
-                  await showErrorDialog(
-                    context,
-                    "E-mail veya şifre hatalı. Lütfen tekrar deneyin.",
-                  );
-                } else if (e.code == "invalid-email") {
-                  await showErrorDialog(
-                    context,
-                    "Geçersiz e-mail adresi. Lütfen tekrar deneyin.",
-                  );
-                } else {
-                  await showErrorDialog(
-                    context,
-                    "Beklenmedik bir hata oluştu: ${e.code}",
-                  );
-                }
-              } catch (e) {
-                await showErrorDialog(context, e.toString());
+              } on InvalidCredentialAuthException {
+                await showErrorDialog(
+                  context,
+                  "E-mail veya şifre hatalı. Lütfen tekrar deneyin.",
+                );
+              } on InvalidEmailAuthException {
+                await showErrorDialog(
+                  context,
+                  "Geçersiz e-mail adresi. Lütfen tekrar deneyin.",
+                );
+              } on GenericAuthException {
+                await showErrorDialog(
+                  context,
+                  "Kimlik doğrulama hatası. Lütfen tekrar deneyin.",
+                );
               }
             },
             child: const Text('Giriş yap'),

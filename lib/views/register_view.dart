@@ -1,6 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mynoteapp/constants/routes.dart';
+import 'package:mynoteapp/services/auth/auth_exceptions.dart';
+import 'package:mynoteapp/services/auth/auth_service.dart';
 import 'package:mynoteapp/utilities/show_error_dialog.dart';
 
 class RegisterView extends StatefulWidget {
@@ -62,40 +63,32 @@ class _RegisterViewState extends State<RegisterView> {
               final password = _password.text;
 
               try {
-                await FirebaseAuth.instance
-                    .createUserWithEmailAndPassword(
-                      email: email,
-                      password: password,
-                    );
+                await AuthService.firebase().createUser(email: email, password: password);
 
-                final user = FirebaseAuth.instance.currentUser;
-                await user?.sendEmailVerification();
+                await AuthService.firebase().sendEmailVerification();
 
                 Navigator.of(context).pushNamed(verifyEmailRoute);
-              } on FirebaseAuthException catch (e) {
-                if (e.code == "weak-password") {
+
+              } on WeakPasswordAuthException {
                   await showErrorDialog(
                     context,
                     "Şifre en az 6 karakter uzunluğunda olmalı. Lütfen tekrar deneyin.",
                   );
-                } else if (e.code == "email-already-in-use") {
-                  await showErrorDialog(
+              } on EmailAlreadyInUseAuthException {
+                await showErrorDialog(
                     context,
                     "Bu e-mail kullanılıyor. Lütfen tekrar deneyin.",
                   );
-                } else if (e.code == "invalid-email") {
-                  await showErrorDialog(
+              } on InvalidEmailAuthException {
+                await showErrorDialog(
                     context,
                     "Geçersiz e-mail adresi. Lütfen tekrar deneyin.",
                   );
-                } else {
-                  await showErrorDialog(
-                    context,
-                    "Beklenmedik bir hata oluştu: ${e.code}",
-                  );
-                }
-              } catch (e) {
-                await showErrorDialog(context, e.toString());
+              } on GenericAuthException {
+                await showErrorDialog(
+                  context,
+                  "Kayıt olma hatası. Lütfen tekrar deneyin.",
+                );
               }
             },
             child: const Text('Kayıt ol'),
