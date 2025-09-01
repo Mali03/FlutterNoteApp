@@ -3,6 +3,8 @@ import 'package:mynoteapp/constants/routes.dart';
 import 'package:mynoteapp/enums/menu_action.dart';
 import 'package:mynoteapp/services/auth/auth_service.dart';
 import 'package:mynoteapp/services/crud/notes_service.dart';
+import 'package:mynoteapp/utilities/dialogs/logout_dialog.dart';
+import 'package:mynoteapp/views/notes/notes_list_view.dart';
 
 class NotesView extends StatefulWidget {
   const NotesView({super.key});
@@ -82,9 +84,17 @@ class _NotesViewState extends State<NotesView> {
                   switch (snapshot.connectionState) {
                     case ConnectionState.waiting:
                     case ConnectionState.active:
-                      return const Text(
-                        "Tüm notların yüklenmesi bekleniyor...",
-                      );
+                      if (snapshot.hasData) {
+                        final allNotes = snapshot.data as List<DatabaseNote>;
+                        return NotesListView(
+                          notes: allNotes,
+                          onDeleteNote: (note) async {
+                            await _notesService.deleteNote(id: note.id);
+                          },
+                        );
+                      } else {
+                        return const CircularProgressIndicator();
+                      }
                     default:
                       return const CircularProgressIndicator();
                   }
@@ -97,31 +107,4 @@ class _NotesViewState extends State<NotesView> {
       ),
     );
   }
-}
-
-Future<bool> showLogOutDialog(BuildContext context) {
-  return showDialog<bool>(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        title: const Text("Çıkış Yap"),
-        content: const Text("Çıkış yapmak istediğinize emin misiniz?"),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop(true);
-            },
-            child: const Text("Evet"),
-          ),
-
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop(false);
-            },
-            child: const Text("Hayır"),
-          ),
-        ],
-      );
-    },
-  ).then((value) => value ?? false);
 }

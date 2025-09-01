@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mynoteapp/services/auth/auth_service.dart';
 import 'package:mynoteapp/services/crud/notes_service.dart';
-import 'package:sqflite/sqlite_api.dart';
 
 class NewNoteView extends StatefulWidget {
   const NewNoteView({super.key});
