@@ -35,10 +35,16 @@ class _NotesViewState extends State<NotesView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Notlarım"),
+        title: const Text("Notların"),
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
         actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).pushNamed(newNoteRoute);
+            },
+            icon: const Icon(Icons.add),
+          ),
           PopupMenuButton<MenuAction>(
             onSelected: (value) async {
               switch (value) {
@@ -72,10 +78,13 @@ class _NotesViewState extends State<NotesView> {
             case ConnectionState.done:
               return StreamBuilder(
                 stream: _notesService.allNotes,
-                builder:(context, snapshot) {
+                builder: (context, snapshot) {
                   switch (snapshot.connectionState) {
                     case ConnectionState.waiting:
-                      return const Text("Tüm notların yüklenmesi bekleniyor...");
+                    case ConnectionState.active:
+                      return const Text(
+                        "Tüm notların yüklenmesi bekleniyor...",
+                      );
                     default:
                       return const CircularProgressIndicator();
                   }

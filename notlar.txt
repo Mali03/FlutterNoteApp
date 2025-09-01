@@ -4,3 +4,10 @@ DOSYALARDA DEĞİŞİKLİK YAPTIKTAN SONRA PUSH'LAMAK İÇİN
 git add .
 git commit -m "COMMIT_MESAJI"
 git push origin main
+
+ESKİ COMMIT'İ KONTROL ETMEK İÇİN
+git log -> commit'in idsini al
+git checkout id
+
+GERİ SON COMMIT'E DÖNMEK İÇİN
+git checkout main
