@@ -95,15 +95,20 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
         title: const Text("Yeni Not Oluştur"),
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
-        actions: [IconButton(onPressed: () async {
-          final text = _textController.text;
-          
-          if (_note == null || text.isEmpty) {
-            await showCannotShareEmptyNoteDialog(context);
-          } else {
-            SharePlus.instance.share(ShareParams(text: text));
-          }
-        }, icon: const Icon(Icons.share))],
+        actions: [
+          IconButton(
+            onPressed: () async {
+              final text = _textController.text;
+
+              if (_note == null || text.isEmpty) {
+                await showCannotShareEmptyNoteDialog(context);
+              } else {
+                SharePlus.instance.share(ShareParams(text: text));
+              }
+            },
+            icon: const Icon(Icons.share),
+          ),
+        ],
       ),
       body: FutureBuilder(
         future: createOrGetExistingNote(context),
@@ -111,12 +116,22 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
               _setupTextControllerListener();
-              return TextField(
-                controller: _textController,
-                keyboardType: TextInputType.multiline,
-                maxLines: null,
-                decoration: const InputDecoration(
-                  hintText: 'Notunuzu buraya yazın.',
+              return Scaffold(
+                body: SizedBox.expand(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: TextField(
+                      controller: _textController,
+                      keyboardType: TextInputType.multiline,
+                      maxLines: null,
+                      expands: true,
+                      textAlignVertical: TextAlignVertical.top,
+                      decoration: const InputDecoration(
+                        hintText: 'Notunuzu buraya yazın.',
+                        border: InputBorder.none,
+                      ),
+                    ),
+                  ),
                 ),
               );
             default:

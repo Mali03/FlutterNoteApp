@@ -27,12 +27,13 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
             },
             child: const Text("Doğrulama e-postası gönder."),
           ),
+          const Text("\n\nE-posta üzerinden doğrulama yaptın mı?"),
           TextButton(
             onPressed: () async {
               await AuthService.firebase().logOut();
               Navigator.of(context).pushNamedAndRemoveUntil(loginRoute, (route) => false);
             },
-            child: const Text("Çıkış yap"),
+            child: const Text("Giriş yap"),
           ),
         ],
       ),
