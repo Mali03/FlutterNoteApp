@@ -8,4 +8,4 @@ git log -> commit'in idsini al
 git checkout id
 
 GERİ SON COMMIT'E DÖNMEK İÇİN
-git checkout main
+git checkout main 
