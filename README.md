@@ -1,18 +1,10 @@
-# mynoteapp
+# Flutter Note App | Flutter Not Uygulaması 📝
 
-A new Flutter project.
+![Flutter](https://img.shields.io/badge/Flutter-3.29.3-blue?logo=flutter)
+![Dart](https://img.shields.io/badge/Dart-3.7.2-blue?logo=dart)
+![Firebase](https://img.shields.io/badge/Firebase-orange?logo=firebase)
 
-## Getting Started
+EN - A simple note-taking application built with Flutter and Firebase. The app supports user authentication (Login, Register), real-time storage of notes, and basic note management features (such as create, edit, delete and share).
 
-This project is a starting point for a Flutter application.
+TR - Flutter ve Firebase ile geliştirilmiş basit bir not alma uygulaması. Uygulama, kullanıcı kimlik doğrulamasını (Giriş yap, Kayıt ol), notların gerçek zamanlı olarak saklanmasını ve temel not yönetim özelliklerini (oluşturma, düzenleme, silme ve paylaşma) destekler.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
-Crud version f984f70 f984f70d039f133392ebd415ad0f83ccc265c628
