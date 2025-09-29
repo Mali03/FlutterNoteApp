@@ -27,10 +27,64 @@ The app supports user authentication (Login, Register), real-time storage of not
 ## 🧾 Contents
 - [Features](#-features)
 - [Previous Version (Local Storage with SQLite)](#-previous-version-local-storage-with-sqLite)
+- [License](#-license)
+- [Need help](#-need-help)
 
 ## 🔍 Features
 - Email / password authentication
 - Register, Login, Email Verification, Forgot Password flows
+- Share notes via system share sheet
+- Notes stored in Firebase (Firestore)
+- Multi-platform compatibility (Mobile, Web, Desktop)
+
+## 🛠 Getting Started
+### Prerequisites
+- Flutter SDK
+- Android Studio or Xcode (for device/emulator)
+- A Firebase project
+
+### Installation
+1. Clone the repo:
+```
+git clone https://github.com/Mali03/FlutterNoteApp.git
+cd FlutterNoteApp
+```
+
+2. Get packages:
+```
+flutter pub get
+```
+
+3. Configure Firebase:
+
+- Create a Firebase project at https://console.firebase.google.com/
+
+- Enable Authentication → Email/Password
+
+- Create a Firestore database (start in test mode during development)
+
+For Android:
+
+- Add an Android app in Firebase with your package name
+
+- Download `google-services.json` and place it in `android/app/`
+
+- Add Firebase config in `android/build.gradle` and `android/app/build.gradle` as per FlutterFire docs
+
+For iOS:
+
+- Add an iOS app in Firebase with your bundle identifier
+
+- Download `GoogleService-Info.plist` and place it in `ios/Runner/`
+
+- Run `pod install` in `ios/`
+
+> Follow official FlutterFire setup docs for exact steps: https://firebase.flutter.dev/ (recommended)
+
+4. Run the app:
+```
+flutter run
+```
 
 ## 💾 Previous Version (Local Storage with SQLite)
 
@@ -38,6 +92,14 @@ The current version of this app uses **Firebase (cloud-based)** for note storage
 If you would like to see the earlier implementation that used **local storage with SQLite (sqflite)**, you can check out commit [`f984f70`](https://github.com/Mali03/FlutterNoteApp/commit/f984f70).  
 
 That version demonstrates how CRUD operations were handled locally using the `sqflite` package before migrating to Firebase.
+
+Note: the old SQLite-related files are still present in the project under `lib/services/crud/`, but they are no longer used in the current Firebase-based implementation.
+
+## 📚 License
+This project is licensed under the **MIT License** - see the [LICENSE](https://github.com/Mali03/FlutterNoteApp/blob/main/LICENSE) file for details.
+
+## ❓ Need Help
+If you need any help contact me on [LinkedIn](https://www.linkedin.com/in/mali03/).
 
 # Türkçe
 
