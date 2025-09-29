@@ -26,7 +26,9 @@ The app supports user authentication (Login, Register), real-time storage of not
 
 ## 🧾 Contents
 - [Features](#-features)
+- [Getting Started](#-getting-started)
 - [Previous Version (Local Storage with SQLite)](#-previous-version-local-storage-with-sqLite)
+- [Used Technologies](#-used-technologies)
 - [License](#-license)
 - [Need help](#-need-help)
 
@@ -94,6 +96,18 @@ If you would like to see the earlier implementation that used **local storage wi
 That version demonstrates how CRUD operations were handled locally using the `sqflite` package before migrating to Firebase.
 
 Note: the old SQLite-related files are still present in the project under `lib/services/crud/`, but they are no longer used in the current Firebase-based implementation.
+
+## 🌐 Used Technologies
+
+- Flutter & Dart (Cross-platform app development)  
+- Firebase (Authentication, Firestore database, Analytics)  
+- Sqflite (Local SQLite storage (old version))  
+- Share Plus (Share notes via system sheet)  
+- Path & Path Provider (File system access)  
+- Flutter Launcher Icons (App icons for Android & iOS)  
+- Cupertino Icons (iOS-style icons)  
+- Flutter Lints & Test (Code quality and unit testing)
+
 
 ## 📚 License
 This project is licensed under the **MIT License** - see the [LICENSE](https://github.com/Mali03/FlutterNoteApp/blob/main/LICENSE) file for details.
