@@ -50,10 +50,12 @@ class HomePage extends StatelessWidget {
               return const LoginView();
             }
           default:
-            return const Center(child: CircularProgressIndicator());
+            return Scaffold(
+              backgroundColor: Colors.white,
+              body: const Center(child: CircularProgressIndicator(color: Colors.black)),
+            );
         }
       },
     );
   }
 }
-

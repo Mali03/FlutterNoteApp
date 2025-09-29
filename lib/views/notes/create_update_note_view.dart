@@ -110,6 +110,7 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
           ),
         ],
       ),
+      backgroundColor: Colors.white,
       body: FutureBuilder(
         future: createOrGetExistingNote(context),
         builder: (context, snapshot) {
@@ -117,6 +118,7 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
             case ConnectionState.done:
               _setupTextControllerListener();
               return Scaffold(
+                backgroundColor: Colors.white,
                 body: SizedBox.expand(
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
@@ -127,6 +129,8 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
                       expands: true,
                       textAlignVertical: TextAlignVertical.top,
                       decoration: const InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
                         hintText: 'Notunuzu buraya yazın.',
                         border: InputBorder.none,
                       ),
@@ -135,7 +139,12 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
                 ),
               );
             default:
-              return const Center(child: CircularProgressIndicator());
+              return Scaffold(
+                backgroundColor: Colors.white,
+                body: const Center(
+                  child: CircularProgressIndicator(color: Colors.black),
+                ),
+              );
           }
         },
       ),

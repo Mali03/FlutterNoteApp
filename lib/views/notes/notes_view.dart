@@ -80,6 +80,7 @@ class _NotesViewState extends State<NotesView> {
           ),
         ],
       ),
+      backgroundColor: Colors.white,
       body: StreamBuilder(
         stream: _notesService.allNotes(ownerUserId: userId),
         builder: (context, snapshot) {
@@ -100,10 +101,20 @@ class _NotesViewState extends State<NotesView> {
                   },
                 );
               } else {
-                return const Center(child: CircularProgressIndicator());
+                return Scaffold(
+                  backgroundColor: Colors.white,
+                  body: const Center(
+                    child: CircularProgressIndicator(color: Colors.black),
+                  ),
+                );
               }
             default:
-              return const Center(child: CircularProgressIndicator());
+              return Scaffold(
+                backgroundColor: Colors.white,
+                body: const Center(
+                  child: CircularProgressIndicator(color: Colors.black),
+                ),
+              );
           }
         },
       ),
