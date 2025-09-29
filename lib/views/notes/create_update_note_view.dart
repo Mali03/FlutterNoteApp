@@ -92,7 +92,7 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Yeni Not Oluştur"),
+        title: const Text("Notunu düzenle"),
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
         actions: [
