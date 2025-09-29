@@ -18,24 +18,27 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
       ),
-      body: Column(
-        children: [
-          const Text("Doğrulama e-postası gönderdik. Lütfen gönderilen e-posta'dan doğrulamanızı yapın.\n\nEğer doğrulama e-postası gelmediyse aşağıdaki butona tıklayın."),
-          TextButton(
-            onPressed: () async {
-              await AuthService.firebase().sendEmailVerification();
-            },
-            child: const Text("Doğrulama e-postası gönder."),
-          ),
-          const Text("\n\nE-posta üzerinden doğrulama yaptın mı?"),
-          TextButton(
-            onPressed: () async {
-              await AuthService.firebase().logOut();
-              Navigator.of(context).pushNamedAndRemoveUntil(loginRoute, (route) => false);
-            },
-            child: const Text("Giriş yap"),
-          ),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            const Text("Doğrulama e-postası gönderdik. Lütfen gönderilen e-posta'dan doğrulamanızı yapın.\n\nEğer doğrulama e-postası gelmediyse aşağıdaki butona tıklayın."),
+            TextButton(
+              onPressed: () async {
+                await AuthService.firebase().sendEmailVerification();
+              },
+              child: const Text("Doğrulama e-postası gönder."),
+            ),
+            const Text("\n\nE-posta üzerinden doğrulama yaptın mı?"),
+            TextButton(
+              onPressed: () async {
+                await AuthService.firebase().logOut();
+                Navigator.of(context).pushNamedAndRemoveUntil(loginRoute, (route) => false);
+              },
+              child: const Text("Giriş yap"),
+            ),
+          ],
+        ),
       ),
     );
   }

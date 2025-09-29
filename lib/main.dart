@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mynoteapp/constants/routes.dart';
 import 'package:mynoteapp/services/auth/auth_service.dart';
+import 'package:mynoteapp/views/forgot_password_view.dart';
 import 'package:mynoteapp/views/login_view.dart';
 import 'package:mynoteapp/views/notes/notes_view.dart';
 import 'package:mynoteapp/views/register_view.dart';
@@ -18,6 +19,7 @@ void main() {
       routes: {
         loginRoute: (context) => const LoginView(),
         registerRoute: (context) => const RegisterView(),
+        forgotPasswordRoute: (context) => const ForgotPasswordView(),
         notesRoute: (context) => const NotesView(),
         verifyEmailRoute: (context) => const VerifyEmailView(),
         createUpdateRoute: (context) => const CreateUpdateNoteView(),

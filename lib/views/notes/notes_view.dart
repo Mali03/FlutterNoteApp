@@ -23,6 +23,21 @@ class _NotesViewState extends State<NotesView> {
   void initState() {
     _notesService = FirebaseCloudStorage();
     super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final userEmail = AuthService.firebase().currentUser?.email;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("$userEmail olarak giriş yapıldı"),
+          duration: Duration(seconds: 3),
+          backgroundColor: Colors.blueGrey,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    });
   }
 
   @override
