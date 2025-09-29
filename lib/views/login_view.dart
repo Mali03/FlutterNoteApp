@@ -37,6 +37,7 @@ class _LoginViewState extends State<LoginView> {
         title: const Text("Giriş yap"),
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -50,7 +51,10 @@ class _LoginViewState extends State<LoginView> {
               ),
               child: Column(
                 children: [
-                  const Text("Not tutmaya başlamadan önce lütfen giriş yapın.", style: TextStyle(fontWeight: FontWeight.bold)),
+                  const Text(
+                    "Not tutmaya başlamadan önce lütfen giriş yapın.",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                   TextField(
                     controller: _email,
                     enableSuggestions: false,

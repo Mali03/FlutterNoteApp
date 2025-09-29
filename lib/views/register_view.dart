@@ -40,6 +40,7 @@ class _RegisterViewState extends State<RegisterView> {
         title: const Text("Kayıt ol"),
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

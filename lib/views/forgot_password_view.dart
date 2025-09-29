@@ -31,59 +31,76 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Şifre Sıfırlama"),
+        title: const Text("Şifreni Sıfırla"),
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            const Text("Şifre sıfırlama e-postası gönderilecek adresi gir."),
-            TextField(
-              keyboardType: TextInputType.emailAddress,
-              autocorrect: false,
-              autofocus: true,
-              enableSuggestions: false,
-              controller: _controller,
-              decoration: const InputDecoration(
-                hintText: 'E-posta adresinizi buraya yazın.',
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.blue[100],
+                borderRadius: BorderRadius.circular(8),
               ),
-            ),
-            TextButton(
-              onPressed: () async {
-                final email = _controller.text;
-                try {
-                  await AuthService.firebase().sendPasswordReset(email: email);
+              child: Column(
+                children: [
+                  const Text(
+                    "Şifre sıfırlama e-postası gönderilecek adresi gir.",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  TextField(
+                    keyboardType: TextInputType.emailAddress,
+                    autocorrect: false,
+                    autofocus: true,
+                    enableSuggestions: false,
+                    controller: _controller,
+                    decoration: const InputDecoration(
+                      hintText: 'E-posta adresini girin.',
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () async {
+                      final email = _controller.text;
+                      try {
+                        await AuthService.firebase().sendPasswordReset(
+                          email: email,
+                        );
 
-                  return showPasswordResetEmailSentDialog(context);
-                } on InvalidCredentialAuthException {
-                  await showErrorDialog(
-                    context,
-                    "E-mail veya şifre hatalı. Lütfen tekrar deneyin.",
-                  );
-                } on InvalidEmailAuthException {
-                  await showErrorDialog(
-                    context,
-                    "Geçersiz e-mail adresi. Lütfen tekrar deneyin.",
-                  );
-                } on GenericAuthException {
-                  await showErrorDialog(
-                    context,
-                    "Kimlik doğrulama hatası. Lütfen tekrar deneyin.",
-                  );
-                }
-              },
-              child: const Text('Gönder'),
-            ),
+                        return showPasswordResetEmailSentDialog(context);
+                      } on InvalidCredentialAuthException {
+                        await showErrorDialog(
+                          context,
+                          "E-mail veya şifre hatalı. Lütfen tekrar deneyin.",
+                        );
+                      } on InvalidEmailAuthException {
+                        await showErrorDialog(
+                          context,
+                          "Geçersiz e-mail adresi. Lütfen tekrar deneyin.",
+                        );
+                      } on GenericAuthException {
+                        await showErrorDialog(
+                          context,
+                          "Kimlik doğrulama hatası. Lütfen tekrar deneyin.",
+                        );
+                      }
+                    },
+                    child: const Text('Gönder'),
+                  ),
 
-            TextButton(
-              onPressed: () {
-                Navigator.of(
-                  context,
-                ).pushNamedAndRemoveUntil(loginRoute, (route) => false);
-              },
-              child: const Text('Giriş yap'),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(
+                        context,
+                      ).pushNamedAndRemoveUntil(loginRoute, (route) => false);
+                    },
+                    child: const Text('Giriş yap'),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

@@ -17,6 +17,7 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
         title: const Text("E-posta'nı doğrula"),
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

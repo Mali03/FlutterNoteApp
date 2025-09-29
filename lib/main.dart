@@ -13,7 +13,7 @@ void main() {
 
   runApp(
     MaterialApp(
-      title: 'Flutter Demo',
+      title: 'My Notes',
       theme: ThemeData(primarySwatch: Colors.blue),
       home: const HomePage(),
       routes: {
