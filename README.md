@@ -140,7 +140,7 @@ Uygulama, kullanıcı kimlik doğrulamasını (Giriş yap, Kayıt ol), notların
 - Bir Firebase projesi
 
 ### Kurulum
-1. Repyu klonlayın:
+1. Bu repository'i klonla:
 ```
 git clone https://github.com/Mali03/FlutterNoteApp.git
 cd FlutterNoteApp
@@ -203,7 +203,7 @@ Not: Eski SQLite ile ilgili dosyalar hâlâ projede `lib/services/crud/` klasör
 - Flutter Lints & Test (Kod kalitesi ve testler)
 
 ## 📚 Lisans
-Bu proje **MIT Lisans** altında lisanslanmıştır - detaylar için [LICENSE](https://github.com/Mali03/UAV-interface/blob/main/LICENSE) dosyasını incele.
+Bu proje **MIT Lisans** altında lisanslanmıştır - detaylar için [LICENSE](https://github.com/Mali03/FlutterNoteApp/blob/main/LICENSE) dosyasını incele.
 
 ## ❓ Yardım
 Eğer bir yardıma ihtiyacın varsa bana [LinkedIn](https://www.linkedin.com/in/mali03/) üzerinden ulaş.
